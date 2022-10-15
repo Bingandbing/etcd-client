@@ -5,7 +5,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "í ¼í¾‰ The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: docker --version
       - run: echo "í ½í°§ This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "í ½í´Ž The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
