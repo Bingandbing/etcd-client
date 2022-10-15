@@ -1,8 +1,13 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions ������
-on: [push]
+name: Etcd Client Test
+run-name: ${{ github.actor }} is testing out etcd client
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
 jobs:
-  Explore-GitHub-Actions:
+  regression-test:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Get latest etcd from docker hub"
@@ -13,5 +18,9 @@ jobs:
       - run: sudo apt install -y protobuf-compiler libprotobuf-dev
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: test code style check
+        run: cargo clippy
       - name: test etcd client unit
         run: cargo test
+      - name: run example
+        run: cd examples && cargo run kv
