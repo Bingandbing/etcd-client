@@ -12,9 +12,5 @@ jobs:
       - run: sudo docker run -d --name Etcd-server --network app-tier --publish 2379:2379 --publish 2380:2380 --env ALLOW_NONE_AUTHENTICATION=yes --env ETCD_ADVERTISE_CLIENT_URLS=http://etcd-server:2379 bitnami/etcd:latest
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: echo "������ The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "������️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "������ This job's status is ${{ job.status }}."
+      - name: test etcd client unit
+        run: cargo test
