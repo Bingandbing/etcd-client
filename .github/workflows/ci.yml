@@ -1,10 +1,12 @@
 name: Etcd Client Test
 run-name: ${{ github.actor }} is testing out etcd client
 on:
-  push:
-    branches: ["master"]
   pull_request:
     branches: ["master"]
+    paths:
+      - 'src/**'
+      - 'examples/**'
+      - 'proto/**'
 
 jobs:
   regression-test:
@@ -22,5 +24,14 @@ jobs:
         run: cargo clippy
       - name: test etcd client unit
         run: cargo test
-      - name: run example
-        run: cd examples && cargo run --example kv
+      - name: run examples
+      - run: cd examples && cargo run --example auth
+      - run: cd examples && cargo run --example auth_role
+      - run: cd examples && cargo run --example auth_user
+      - run: cd examples && cargo run --example cluster
+      - run: cd examples && cargo run --example election
+      - run: cd examples && cargo run --example kv
+      - run: cd examples && cargo run --example lease
+      - run: cd examples && cargo run --example lock
+      - run: cd examples && cargo run --example maintenance
+      - run: cd examples && cargo run --example watch
