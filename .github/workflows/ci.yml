@@ -3,10 +3,6 @@ run-name: ${{ github.actor }} is testing out etcd client
 on:
   pull_request:
     branches: ["master"]
-    paths:
-      - 'src/**'
-      - 'examples/**'
-      - 'proto/**'
 
 jobs:
   regression-test:
@@ -20,6 +16,16 @@ jobs:
       - run: sudo apt install -y protobuf-compiler libprotobuf-dev
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: Paths Filter
+        uses: ./.github/actions/paths-filter
+        id: filter
+        with:
+          filters: |
+            code_changes:
+              paths:
+                - 'src/**'
+                - 'examples/**'
+                - 'proto/**'
       - name: test code style check
         run: cargo clippy
       - name: test etcd client unit
