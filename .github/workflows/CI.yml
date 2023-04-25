@@ -23,4 +23,4 @@ jobs:
       - name: test etcd client unit
         run: cargo test
       - name: run example
-        run: cd examples && cargo run kv
+        run: cd examples && cargo run --example kv
